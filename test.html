@@ -1,0 +1,199 @@
+<html>
+    <head>
+        <title>essai</title>
+    </head>
+    <style>
+        .box{
+    margin: 0;
+    padding: 0;
+    box-sizing:  border box;
+}
+
+.body{
+    height: 800px;
+    width: 780px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20;
+    margin: auto;
+    box-shadow: 2px 4px 3px rgb(255,174,200);
+    border-radius: 10px;
+    font-size: 16px;
+    border: 5px solid rgb(255,174,200);
+    background: #ebb8e2;
+}
+
+
+
+.box{
+    width: 500px;
+    height: 300px;
+    background: rgb(255,174,200);
+    position: absolute;
+}
+
+.box::before,
+.box::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(45deg, #ff0000, #00f0f0, #00ff00, #0000ff,
+    #ff0000, #00f0f0, #00ff00, #0000ff, #f00f0f);
+    width: 100%;
+    height: 100%;
+    background-size: 500%;
+    z-index: -1;
+    transform: scale(1.02);
+    animation: animate 20s infinite;
+}
+
+.box::after{
+    filter: blur(20px);
+}
+
+@keyframes animate {
+    0% {background-position: 0 0;}
+    50% {background-position: 300% 0;}
+    100% {background-position: 0 0;}
+}
+
+
+#bloc{
+   text-align: center;
+   margin-top: 20px;
+   margin-right: 5px;
+}
+
+#cadre{
+    height: 100px;
+}
+
+#legend{
+    margin: auto;
+}
+
+#billet{
+   width: 30px;
+}
+
+
+.titre{
+    text-align: center;
+    margin-bottom: auto;
+    margin-top: 50px;
+    position: relative;
+    color: black;
+    font-size: 55;
+}
+
+
+input{
+    height: 25px;
+    text-align: center;
+}
+
+#input{
+    margin-left: 5px;
+}
+
+
+
+#inputType{
+    margin: 0px 12px;
+    width: 177px;
+    color: purple;
+    
+}
+
+#resultType{
+    width: 177px;
+    margin: 0px 7px;
+    color: purple;
+}
+
+#reset{
+    position: absolute;
+    margin: 56px 180px;
+}
+
+#egal{
+    font-size: 25;
+}
+    </style>
+    <body class = "body">
+        <h1 class="titre">Bienvenue !</h1>    
+            <div class = "box">
+                <div id = "texte">
+                    <p>
+                        <center>
+                            <h4><u>Convertisseur</u></h4>
+                        </center> 
+                        <ol>
+                            <li>Choisissez la devise à convertir</li>
+                            <li>Choisissez la devise vers laquelle convertir</li>
+                            <li>Pour réinitialiser, appuyez sur le bouton de réinitialisation</li>
+                        </ol>
+                    </p>
+                </div>
+                <form name = "formulaire">
+                    <div id = "bloc">
+                        <fieldset id = "cadre">
+                            <legend id = "legend"><img id = billet src = "billet.png"></legend>
+                            <input type = "image" value = "Reset" id = "reset" src = "dsBuffer.bmp.png">
+                            <input type ="text" placeholder ="Entrée" id="input" name = "champinput">
+                            <span id = "egal">=</span>
+                            <input type ="text" placeholder ="Résultat" id ="result" name = "champresult" disabled = "disabled">
+                            <select id = "inputType" name = "inputType">
+                                <option value = "">--Choisissez une devise--</option>
+                                <option value="euro">Euro</option>
+                                <option value="dollar">Dollar</option>
+                            </select>
+                            <select id ="resultType" name = "resultType">
+                                <option value = "">--Choisissez une devise--</option>
+                                <option value="dollar">Dollar</option>
+                                <option value="euro">Euro</option> 
+                            </select>
+                        </fieldset>     
+                    </div>
+                </form>
+            </div>
+        <script>
+            var input = document.getElementById('input');
+var result = document.getElementById('result');
+var inputType = document.getElementById('inputType');
+var resultType = document.getElementById('resultType');
+var inputTypeValue,resultTypevalue;
+ 
+
+
+input.addEventListener("keyup",myResult);
+inputType.addEventListener("change",myResult);
+resultType.addEventListener("change",myResult);
+
+inputTypeValue = inputType.value;
+resultTypeValue = resultType.value;
+
+function myResult(){
+
+    inputTypeValue = inputType.value;
+    resultTypeValue = resultType.value;
+    if(isNaN(input.value)){
+        alert("Vous avez saisi autre chose qu'un nombre. Veuillez saisir un nombre")
+        document.formulaire.champinput.value = "0";
+    }else if(inputTypeValue === "euro" && resultTypeValue === "dollar"){
+        result.value = (input.value)*1.21;
+        result.value = Math.round(result.value * 100) / 100;
+    }else if(inputTypeValue === "euro" && resultTypeValue === "euro"){
+        result.value = input.value
+    }if(inputTypeValue === "dollar" && resultTypeValue === "euro"){
+        result.value = (input.value)*0.82;
+        result.value = Math.round(result.value * 100) / 100;
+    }else if(inputTypeValue === "dollar" && resultTypeValue === "dollar"){
+        result.value = input.value
+    }
+}
+        </script>
+    </body>
+</html>
